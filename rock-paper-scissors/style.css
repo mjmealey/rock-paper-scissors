@@ -2,12 +2,12 @@
 
 @font-face {
   font-family: "Norse";
-  src: url("fonts/Norse.otf") format("opentype");
+  src: url("rock-paper-scissors/Norse.otf") format("opentype");
 }
 
 /*body*/
 body {
-  background-color: darkblue;
+  background-color: rgb(229, 229, 255);
   overflow: hidden;
 }
 
