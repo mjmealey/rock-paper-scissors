@@ -1,101 +1,114 @@
-const decisions = ["Rock","Paper", "Scissors"]
-function getComputerChoice() {
-    const choices = decisions [Math.floor(Math.random()*3)]
-    return choices;
+let axe = document.getElementById("axe");
+let sword = document.getElementById("sword");
+let shield = document.getElementById("shield");
+let userDisplayEl = document.getElementById("userDisplayEl");
+let computerDisplayEl = document.getElementById("computerDisplayEl");
+let wordsDisplayEl = document.getElementById("wordsDisplayEl");
+let tiesDisplayEl = document.getElementById("tiesDisplayEl");
+
+let compScore = 0;
+let tieCount = 0;
+let userScore = 0;
+let decisions = ["axe", "sword", "shield"];
+
+axe.addEventListener("click", (e) => {
+  if (e.target.id === "axe") {
+    rpsRound("axe");
+    checkWinner();
+  }
+});
+
+sword.addEventListener("click", (e) => {
+  if (e.target.id === "sword") {
+    rpsRound("sword");
+    checkWinner();
+  }
+});
+
+shield.addEventListener("click", (e) => {
+  if (e.target.id === "shield") {
+    rpsRound("shield");
+    checkWinner();
+  }
+});
+
+function computerChoice() {
+  let choices = decisions[Math.floor(Math.random() * 3)];
+  return choices;
 }
 
+function rpsRound(playerSelection) {
+  playerSelection = "axe";
+  let computerSelection = computerChoice();
 
-
-//section is for deciding the winner based on results
-function checkWinner(playerSelection, computerSelection) {
-if (playerSelection === computerSelection) {
-return "Tie"}
-
-
-    else if 
-        (playerSelection === "Scissors" && computerSelection === "Paper"){
-        return "Player wins! Scissors beats paper!"
-    }
-
-    else if 
-        (playerSelection === "Paper" && computerSelection === "Scissors" ) {
-            return "Computer wins! Scissors beats paper!"
-        }
-
-    else if
-        (playerSelection === "Paper" && computerSelection === "Rock") {
-        return "Player wins! Paper beats rock!"}
-
-    else if 
-        (playerSelection === "Rock" && computerSelection === "Paper") {
-        return "Computer wins! Paper beats rock!"
-        }
-    else if 
-        (playerSelection === "Rock" && computerSelection === "Scissors") {
-        return "Player wins! Rock beats scissors!"}
-    else if 
-        (playerSelection === "Scissors" && computerSelection === "Rock") {
-            return "Computer wins! Rock beats scissors!"
-        }
-    }
-
- //section is for the turns, results and what'll be said
- function playRound(playerSelection, computerSelection) {
- const results = checkWinner(playerSelection, computerSelection);
- if (results == "Tie") {
- return "It's a tie!"}
-
-    else if 
-        
-        (results == "Player") {
-            return "Player wins!"}
-
-        
-
-        else 
-            (results == "Computer"); {
-                return "Computer Wins"}
-
-            }
-
-
- //section for getting the  for the player and the prompt
- function getPlayerChoice() {
-    let validatedInput = false;
-    while (validatedInput == false) { 
-    const choice = prompt("Rock Paper and Scissors");
-    if (choice == null) {
-        continue;
-    }
-    const choiceInLower = choice.toLowerCase();
-    if(options.includes(choiceInLower)) {
-        validatedInput = true;
-        return choiceInLower;
-    }
-    
-    
- }
-
-}
-// initiating the game and to allow the game to work
-
-function game() {
-    let playerScore=0;
-    let computerScore=0;
-    for (let i = 0; i < 5; i++) {
-    const playerSelection = getPlayerChoice;
-    const computerSelection = getComputerChoice;
-    console.log(playRound(playerSelection, computerSelection));
-    }
-    if(checkWinner(playerSelection, computerSelection)=playerScore)
-        playerscore++
-    else (checkWinner(playerSelection, computerSelection)=computerScore)
-        computerScore++
-    console.log("Game Over")
-    if(playerScore > computerScore)
-        console.log("Player is the winner")
-    else (playerScore < computerScore)
-        console.log("Computer is the winner")
+  if (playerSelection === computerSelection) {
+    ++tieCount;
+    tiesDisplayEl.innerText = tieCount;
+    wordsDisplayEl.innerText =
+      "Both sides are neck and neck! I am on the edge of my seat!";
+  } else if (playerSelection === "axe" && computerSelection === decisions[2]) {
+    ++compScore;
+    computerDisplayEl.innerText = compScore;
+    wordsDisplayEl.innerText =
+      "The opponent's shield parried your axe! The opponent has you on the ropes!";
+  } else if (
+    playerSelection === "sword" &&
+    computerSelection === decisions[0]
+  ) {
+    ++userScore;
+    userDisplayEl.innerText = userScore;
+    wordsDisplayEl.innerText =
+      "Your sword overcomes the opponent's blunt axe! You have a fighting chance!";
+  } else if (
+    playerSelection === "shield" &&
+    computerSelection === decisions[0]
+  ) {
+    ++userScore;
+    userDisplayEl.innerText = userScore;
+    wordsDisplayEl.innerText =
+      "You parried your opponent's hasty attack and knocked off their balance!";
+  } else if (playerSelection === "axe" && computerSelection === decisions[1]) {
+    ++userScore;
+    userDisplayEl.innerText = userScore;
+    wordsDisplayEl.innerText =
+      "Your axe overcame the opponent's hastiness with his sword! You have him on the ropes!";
+  } else if (playerSelection === "axe" && computerSelection === [1]) {
+    ++compScore;
+    computerDisplayEl.innerText = compScore;
+    wordsDisplayEl.innerText =
+      "The opponent's sword overpowered your axe, but you still have a fighting chance!";
+  }
 }
 
-game();
+function checkWinner() {
+  if (userScore === 5) {
+    wordsDisplayEl.innerText = "You sent your opponent to Valhalla!";
+    resetPrompt();
+  } else if (compScore === 5) {
+    wordsDisplayEl.innerText =
+      "You are sent to Valhalla! A funeral will be held in your heroic name.";
+    resetPrompt();
+  }
+}
+
+function resetPrompt() {
+  let user = prompt("Would you like to reset the game? y for yes or n for no?");
+  if (user === "y") {
+    compScore = 0;
+    computerDisplayEl.innerText = compScore;
+    tieCount = 0;
+    tiesDisplayEl.innerText = tieCount;
+    userScore = 0;
+    userDisplayEl.innerText = userScore;
+    wordsDisplayEl.innerText = "Who will be sent to Valhalla today?";
+  } else if (user === "n"){
+    compScore = 0;
+    computerDisplayEl.innerText = compScore;
+    tieCount = 0;
+    tiesDisplayEl.innerText = tieCount;
+    userScore = 0;
+    userDisplayEl.innerText = userScore;
+    wordsDisplayEl.innerText = "Who will be sent to Valhalla today?";
+  } 
+
+}
